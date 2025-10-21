@@ -10,18 +10,23 @@
     $archivo = fopen("divs_php.csv");
 
     # LÓGICA DE NEGOCIO 
-    function leerArchivoCSV($rutaArchivoCSV) {
-        $tablero = [];
-    
-        if (($puntero = fopen($rutaArchivoCSV, "r")) !== FALSE) {
-            while (($datosFila = fgetcsv($puntero)) !== FALSE) {
-                $tablero[] = $datosFila;
-            }
-            fclose($puntero);
+   function leerArchivoCSV($rutaArchivoCSV) {
+    $tablero = [];
+    $header = [];
+
+    if (($puntero = fopen($rutaArchivoCSV, "r")) !== FALSE) {
+        $header = fgetcsv($puntero);
+        while (($datosFila = fgetcsv($puntero)) !== FALSE) {
+            $tablero[] = $datosFila;
         }
-    
-        return $tablero;
+        fclose($puntero);
     }
+
+    return [
+        'header' => $header,
+        'datos' => $tablero
+    ];
+}
 
 
     # LÓGICA DE PRESENTACIÓN
