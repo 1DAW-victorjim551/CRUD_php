@@ -1,1 +1,6 @@
-ID, USUARIO, EMAIL, PASSWORD
+USUARIO, EMAIL, ROL, PASSWORD
+victor, victorjimenenez@gmail.com, admin, prueba
+victor, victorjimenenez@gmail.com, admin, prueba
+victor, victorjimenenez@gmail.com, admin, prueba
+victor, victorjimenenez@gmail.com, admin, prueba
+victor, victorjimenenez@gmail.com, admin, prueba

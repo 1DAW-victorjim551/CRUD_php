@@ -1,36 +1,59 @@
 <?php
 
-# INICIALIZACIÓN DEL ENTORNO
+# FUNCIÓN DE DEBUGEO
+function dump($var){
+    echo '<pre>'.print_r($var,1).'</pre>';
+}
 
-#  FUNCIÓN DE DEBUGEO
-    function dump($var){
-        echo '<pre>'.print_r($var,1).'</pre>';
-    }
-
-    $archivo = fopen("divs_php.csv");
-
-    # LÓGICA DE NEGOCIO 
-   function leerArchivoCSV($rutaArchivoCSV) {
-    $tablero = [];
+# LÓGICA DE NEGOCIO 
+function leerArchivoCSV($rutaArchivoCSV) {
+    $tabla = [];
     $header = [];
 
     if (($puntero = fopen($rutaArchivoCSV, "r")) !== FALSE) {
         $header = fgetcsv($puntero);
         while (($datosFila = fgetcsv($puntero)) !== FALSE) {
-            $tablero[] = $datosFila;
+            $tabla[] = $datosFila;
         }
         fclose($puntero);
     }
 
     return [
-        'header' => $header,
-        'datos' => $tablero
+        0 => array('header' => $header),
+        1 => array('datos' => $tabla)
     ];
 }
 
+function mostrarUsuarios($rutaCSV){
+    $output = "<div class='container'>"; 
+    $output .= "<table class='responsive-table'>";
 
-    # LÓGICA DE PRESENTACIÓN
+    $output .= "<tr>";
+    foreach ($rutaCSV[0]["header"] as $header){
+        $output .= "<th>${header}</th>";
+    }
+    $output .= "</tr>";
 
-    $rutaCSV = leerArchivoCSV("./login.csv")
+    foreach($rutaCSV[1]["datos"] as $fila){
+        $output .= "<tr>";
+        foreach($fila as $dato){
+            $output .= "<td>${dato}</td>";
+        }
+        $output .= "<td><button>Sample</button></td>";
+        $output .= "</tr>";
+    }
+
+    $output .= "</table>";
+    $output .= "</div>";
+    return $output;
+}
+
+
+# LÓGICA DE PRESENTACIÓN
+$rutaCSV = leerArchivoCSV("./login.csv");
+// dump($rutaCSV);
+$output = mostrarUsuarios($rutaCSV);
+// dump($output);
+
 
 ?>
