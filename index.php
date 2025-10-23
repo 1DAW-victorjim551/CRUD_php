@@ -1,16 +1,76 @@
-<?php 
-    include("./functions.php");
+<?php
+
+function dump($var){
+    echo '<pre>'.print_r($var,1).'</pre>';
+}
+
+	function escribirCSV($nombreArchivo, $datos) {
+    // Abrir el archivo en modo escritura (crea el archivo si no existe)
+    $archivo = fopen($nombreArchivo, 'a');
+
+    if ($archivo === false) {
+        die("No se pudo abrir el archivo para escritura.");
+    }
+
+    // Recorrer los datos y escribir cada fila como línea CSV	
+        fputcsv($archivo, $datos);
+
+    // Cerrar el archivo
+    fclose($archivo);
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+	$nombreUsuario = $_POST["txt"];
+	$email = $_POST["email"];
+	$rol = $_POST["rol"]??'Visitante';
+	$paswd = $_POST["pswd"];
+	
+	$datos = [$nombreUsuario, $email, $rol, $paswd];
+	dump($datos);
+	escribirCSV("./login.csv", $datos);
+}
+
+	
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INDEX PHP</title>
-    <link rel="stylesheet" href="index_tabla.css">
+	<title>Slide Navbar</title>
+	<link rel="stylesheet" type="text/css" href="./index.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php echo $output ?>
+	<div class="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="signup">
+				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+					<label for="chk" aria-hidden="true">Sign up</label>
+					<input type="text" name="txt" placeholder="User name" required="">
+					<input type="email" name="email" placeholder="Email" required="">
+        <select id="rol" name="rol" required="">
+            <option value="Admin">Admin</option>
+            <option value="Editor">Editor</option>
+            <option value="Visitante">Visitante</option>
+        </select>
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<button type='submit'>Sign up</button>
+				</form>
+			</div>
+
+			<div class="login">
+				<form>
+					<label for="chk" aria-hidden="true">Login</label>
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<button>Login</button>
+				</form>
+			</div>
+	</div>
+<br><br><br><br><br><br><br><br><br>
+	<a href="show_users.php">Mostrar Usuarios</a>
 </body>
 </html>
