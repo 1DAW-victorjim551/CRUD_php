@@ -5,6 +5,9 @@ function dump($var){
     echo '<pre>'.print_r($var,1).'</pre>';
 }
 
+define("CONSTANTE", 7);
+
+
 # LÓGICA DE NEGOCIO 
 function leerArchivoCSV($rutaArchivoCSV) {
     $tabla = [];
@@ -30,7 +33,7 @@ function mostrarUsuarios($rutaCSV){
 
     $output .= "<tr>";
     foreach ($rutaCSV[0]["header"] as $header){
-        $output .= "<th>${header}</th>";
+        $output .= "<th>${header}</th>"; 
     }
     $output .= "</tr>";
 

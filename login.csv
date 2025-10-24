@@ -1,3 +1,2 @@
-USUARIO, EMAIL, ROL, PASSWORD
-"Jose Antonio",mihijofavorito@gmail.com,Visitante,elfavoritodelacasa123
-Christian,juegosirson@gmail.com,Visitante,eselhugodelacasaperoselequiere
+ID, USUARIO, EMAIL, ROL, PASSWORD, DATE
+1,Victor,vjimmar0508@g.educaand.es,Admin,prueba,24/10/2025
