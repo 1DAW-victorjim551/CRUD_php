@@ -1,5 +1,7 @@
 <?php 
-    include("./functions.php");
+    include './functions.php';
+    $rutaCSV = leerArchivoCSV("login.csv");
+
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +13,6 @@
     <link rel="stylesheet" href="index_tabla.css">
 </head>
 <body>
-    <?php echo $output ?>
+    <?php echo mostrarUsuarios($rutaCSV); ?>
 </body>
 </html>

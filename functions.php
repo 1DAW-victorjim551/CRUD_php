@@ -7,7 +7,6 @@ function dump($var){
 
 define("CONSTANTE", 7);
 
-
 # LÓGICA DE NEGOCIO 
 function leerArchivoCSV($rutaArchivoCSV) {
     $tabla = [];
@@ -35,6 +34,7 @@ function mostrarUsuarios($rutaCSV){
     foreach ($rutaCSV[0]["header"] as $header){
         $output .= "<th>${header}</th>"; 
     }
+    $output .= "<th>Acciones</th>";
     $output .= "</tr>";
 
     foreach($rutaCSV[1]["datos"] as $fila){
@@ -42,7 +42,15 @@ function mostrarUsuarios($rutaCSV){
         foreach($fila as $dato){
             $output .= "<td>${dato}</td>";
         }
-        $output .= "<td><button>Sample</button></td>";
+
+        // 🔹 Formulario que llama a delete_users.php
+        $output .= "<td>
+            <form method='POST' action='delete_users.php'>
+                <input type='hidden' name='id_borrar' value='{$fila[0]}'>
+                <button type='submit' name='eliminar'>Eliminar</button>
+            </form>
+        </td>";
+
         $output .= "</tr>";
     }
 
@@ -50,13 +58,5 @@ function mostrarUsuarios($rutaCSV){
     $output .= "</div>";
     return $output;
 }
-
-
-# LÓGICA DE PRESENTACIÓN
-$rutaCSV = leerArchivoCSV("./login.csv");
-// dump($rutaCSV);
-$output = mostrarUsuarios($rutaCSV);
-// dump($output);
-
 
 ?>
