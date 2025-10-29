@@ -63,15 +63,11 @@ function mostrarUsuarios($rutaCSV){
                 <input type='hidden' name='id_borrar' value='{$fila[0]}'>
                 <button type='submit' name='eliminar'>Eliminar</button>
             </form>
-        ";
+        </td>";
 
-        $output .= "
-            <form method='POST' action='show_more_users.php'>
-                <input type='hidden' name='id_user' value='{$fila[0]}'>
-                <button type='submit' name='mostrar_mas'>Mostrar más</button>
-            </form>
-        ";
-        $output .= "</td>";
+        $output .= "<td>
+                <button type='submit' name='mostrar_mas id='showImageBtn''>Mostrar más</button>
+        </td>";
         $output .= "</tr>";
     }
 
