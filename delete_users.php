@@ -1,10 +1,11 @@
 <?php
-$rutaCSV = "./login.csv";
-function borrarUsuario($id_borrar, $ruta_csv) {
+global $rutaCSV; 
+$ruta_CSV = "./login.csv";
+function borrarUsuario($id_borrar, $ruta_CSV) {
     $usuarios = [];
 
     // Leer CSV
-    if (($handle = fopen($ruta_csv, "r")) !== FALSE) {
+    if (($handle = fopen($ruta_CSV, "r")) !== FALSE) {
         while (($data = fgetcsv($handle)) !== FALSE) {
             $usuarios[] = $data;
         }
@@ -21,7 +22,7 @@ function borrarUsuario($id_borrar, $ruta_csv) {
     }
 
     // Reescribir CSV
-    if (($handle = fopen($ruta_csv, "w")) !== FALSE) {
+    if (($handle = fopen($ruta_CSV, "w")) !== FALSE) {
         foreach ($usuarios as $usuario) {
             fputcsv($handle, $usuario);
         }
@@ -31,7 +32,7 @@ function borrarUsuario($id_borrar, $ruta_csv) {
 
 // Si se envía el formulario desde show_users.php
 if (isset($_POST['eliminar']) && isset($_POST['id_borrar'])) {
-    borrarUsuario($_POST['id_borrar'], $ruta_csv);
+    borrarUsuario($_POST['id_borrar'], $ruta_CSV);
 }
 
 

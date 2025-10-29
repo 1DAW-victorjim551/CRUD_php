@@ -19,14 +19,16 @@ function dump($var){
     fclose($archivo);
 }
 
-
+global $id;
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+	$id += 1;
 	$nombreUsuario = $_POST["txt"];
 	$email = $_POST["email"];
 	$rol = $_POST["rol"]??'Visitante';
 	$paswd = $_POST["pswd"];
+	$date = date("d/m/Y");
 	
-	$datos = [$nombreUsuario, $email, $rol, $paswd];
+	$datos = [$id, $nombreUsuario, $email, $rol, $paswd, $date];
 	dump($datos);
 	escribirCSV("./login.csv", $datos);
 }
@@ -56,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             <option value="Editor">Editor</option>
             <option value="Visitante">Visitante</option>
         </select>
+		<input type="file" name="imagen_a_subir" accept="image/*">
 					<input type="password" name="pswd" placeholder="Password" required="">
 					<button type='submit'>Sign up</button>
 				</form>
