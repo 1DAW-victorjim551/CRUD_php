@@ -1,7 +1,11 @@
 <?php 
+    global $rutaCSV;
     include './functions.php';
     $rutaCSV = leerArchivoCSV("login.csv");
-
+    dump($rutaCSV);
+    if (isset($_POST['mostrarMas']) && isset($_POST['id_mostrarMas'])) {
+    mostrarMas($rutaCSV, $_POST['id_mostrarMas'])??null;;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -13,12 +17,13 @@
     <link rel="stylesheet" href="index_tabla.css">
 </head>
 <body>
-    <?php echo mostrarUsuarios($rutaCSV); ?>
+    <?php echo mostrarUsuarios($rutaCSV) ?>
 
         <div class="image-container" id="imageContainer">
             <button class="close-btn" id="closeBtn">X</button>
-            <img src="Media/1.png" alt="Imagen">
+            <?php echo mostrarMas($rutaCSV,  $id_mostrar) ?>
         </div>
+
     <script>
         // Obtener elementos para mi mapa web
         const showImageBtn = document.getElementById('showImageBtn');

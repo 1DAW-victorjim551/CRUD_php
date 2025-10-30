@@ -1,119 +1,112 @@
-html,
-  /* Estilo del botón */
-        button {
-          padding: 10px 20px;
-          font-size: 16px;
-          cursor: pointer;
-        }
-    
-        /* Contenedor de la imagen */
-        .image-container {
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) scale(0.9);
-          background-color: rgba(0, 0, 0, 0.8);
-          padding: 20px;
-          border-radius: 10px;
-          text-align: center;
-    
-          /* Ocultar por defecto */
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-    
-        /* Estado visible */
-        .image-container.show {
-          opacity: 1;
-          visibility: visible;
-          transform: translate(-50%, -50%) scale(1);
-        }
-    
-        /* Imagen dentro del contenedor */
-        .image-container img {
-          max-width: 100%;
-          max-height: 80vh;
-          border-radius: 5px;
-        }
-    
-        /* Botón de cierre ("X") */
-        .close-btn {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          background: red;
-          color: white;
-          border: none;
-          border-radius: 50%;
-          width: 30px;
-          height: 30px;
-          font-size: 16px;
-          line-height: 30px;
-          cursor: pointer;
-        }
-		
-body {
-	height: 100%;
+/* Estilo base */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: sans-serif;
+  font-weight: 100;
+  background: linear-gradient(45deg, #49a09d, #5f2c82);
 }
 
-body {
-	margin: 0;
-	background: linear-gradient(45deg, #49a09d, #5f2c82);
-	font-family: sans-serif;
-	font-weight: 100;
+/* Estilo del botón */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
+/* Contenedor de la imagen */
+.image-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Estado visible */
+.image-container.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Imagen dentro del contenedor */
+.image-container img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 5px;
+}
+
+/* Botón de cierre ("X") */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+/* Contenedor principal */
 .container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
+/* Tabla */
 table {
-	width: 800px;
-	border-collapse: collapse;
-	overflow: hidden;
-	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  width: 800px;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-th,
-td {
-	padding: 15px;
-	background-color: rgba(255,255,255,0.2);
-	color: #fff;
+/* Celdas */
+th, td {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
+/* Encabezado */
 th {
-	text-align: left;
+  text-align: left;
 }
 
-thead {
-	th {
-		background-color: #55608f;
-	}
+thead th {
+  background-color: #55608f;
 }
 
-tbody {
-	tr {
-		&:hover {
-			background-color: rgba(255,255,255,0.3);
-		}
-	}
-	td {
-		position: relative;
-		&:hover {
-			&:before {
-				content: "";
-				position: absolute;
-				left: 0;
-				right: 0;
-				top: -9999px;
-				bottom: -9999px;
-				background-color: rgba(255,255,255,0.2);
-				z-index: -1;
-			}
-		}
-	}
+/* Filas del cuerpo */
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+tbody td {
+  position: relative;
+}
+
+tbody td:hover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -9999px;
+  bottom: -9999px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: -1;
 }
