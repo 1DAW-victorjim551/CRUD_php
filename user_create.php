@@ -27,10 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 	$rol = $_POST["rol"]??'Visitante';
 	$paswd = $_POST["pswd"];
 	$date = date("d/m/Y");
+	$fecha_mod = "";
 	
-	$datos = [$id, $nombreUsuario, $email, $rol, $paswd, $date];
+	$datos = [$id, $nombreUsuario, $email, $rol, $paswd, $date, $fecha_mod];
 	dump($datos);
-	escribirCSV("./login.csv", $datos);
+	escribirCSV("./usuarios.csv", $datos);
 }
 
 	
@@ -74,6 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 			</div>
 	</div>
 <br><br><br><br><br><br><br><br><br>
-	<a href="show_users.php">Mostrar Usuarios</a>
+	<a href="./user_index.php">Mostrar Usuarios</a>
 </body>
 </html>

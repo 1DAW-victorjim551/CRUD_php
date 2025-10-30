@@ -46,8 +46,6 @@ function mostrarUsuarios($rutaCSV){
     // DATOS
     $dato = $rutaCSV[1]["datos"];
 
-
-
     foreach($rutaCSV[1]["datos"] as $fila){
         $output .= "<tr>";
         $output .= "<td>$fila[1]</td>";
@@ -59,7 +57,7 @@ function mostrarUsuarios($rutaCSV){
 
         //  Formulario que llama a delete_users.php
         $output .= "<td>
-            <form method='POST' action='delete_users.php'>
+            <form method='POST' action='user_delete.php'>
                 <input type='hidden' name='id_borrar' value='{$fila[0]}'>
                 <button type='submit' name='eliminar'>Eliminar</button>
             </form>
@@ -67,42 +65,21 @@ function mostrarUsuarios($rutaCSV){
 
         //  Formulario que abre el javascript ubicado en el show_users.php
         $output .= "<td>
-                <form method='POST' action='show_users.php'>
-                <input type='hidden' name='id_mostrarMas' value='{$fila[0]}'>
-                <button type='submit' name='mostrarMas'>Mostrar Más</button>
-            </form>
+            <button class='btnMostrarMas' data-id='{$fila[0]}'>Mostrar Más</button>
         </td>";
         $output .= "</tr>";
+
+        $output .= "<td>
+            <form method='GET' action='user_edit.php'>
+                <input type='hidden' name='id_edit' value='{$fila[0]}'>
+                <button type='submit' name='editar'>Editar</button>
+            </form>
+        </td>";
     }
 
     $output .= "</table>";
     $output .= "</div>";
     return $output;
 }
-
-
-function mostrarMas($rutaCSV, $id_mostrarMas){
-    $output = "<div class='detalleUsuario'>";
-
-    foreach($rutaCSV[1]["datos"] as $fila){
-        if ($fila[0] == $id_mostrarMas){
-            $header = $rutaCSV[0]["header"];
-
-            $output .= "<div class='foto_User'>";
-            $output .= "<h1>Imagen</h1>"; // Aquí podrías añadir una imagen si tienes la ruta
-            $output .= "</div>";
-
-            $output .= "<div class='info_User'>";
-            for ($i = 0; $i < count($header); $i++) {
-                $output .= "<p><strong>{$header[$i]}:</strong> {$fila[$i]}</p>";
-            }
-            $output .= "</div>";
-        }
-    }
-
-    $output .= "</div>";
-    return $output;
-}
-
 
 ?>

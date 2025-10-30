@@ -1,6 +1,6 @@
 <?php
 global $rutaCSV; 
-$ruta_CSV = "./login.csv";
+$ruta_CSV = "./usuarios.csv";
 function borrarUsuario($id_borrar, $ruta_CSV) {
     $usuarios = [];
 
@@ -36,6 +36,6 @@ if (isset($_POST['eliminar']) && isset($_POST['id_borrar'])) {
 }
 
 
-header("Location: show_users.php");
+header("Location: user_index.php");
 exit;
 ?>
