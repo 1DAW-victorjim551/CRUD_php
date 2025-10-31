@@ -37,10 +37,10 @@ function mostrarUsuarios($rutaCSV){
 
     // CABECERA
     $header = $rutaCSV[0]["header"];
-    $output .= "<td>$header[1]</td>";
-    $output .= "<td>$header[2]</td>";
-    $output .= "<td>$header[3]</td>";
-    $output .= "<th>Acciones</th>";
+    $output .= "<th>$header[1]</th>";
+    $output .= "<th>$header[2]</th>";
+    $output .= "<th>$header[3]</th>";
+    $output .= "<th colspan='3'>Acciones</th>";
     $output .= "</tr>";
 
     // DATOS
@@ -58,23 +58,24 @@ function mostrarUsuarios($rutaCSV){
         //  Formulario que llama a delete_users.php
         $output .= "<td>
             <form method='POST' action='user_delete.php'>
-                <input type='hidden' name='id_borrar' value='{$fila[0]}'>
+                <input type='hidden' name='id_borrar' value='$fila[0]'>
                 <button type='submit' name='eliminar'>Eliminar</button>
             </form>
         </td>";
 
         //  Formulario que abre el javascript ubicado en el show_users.php
         $output .= "<td>
-            <button class='btnMostrarMas' data-id='{$fila[0]}'>Mostrar Más</button>
+            <button class='btnMostrarMas' data-id='$fila[0]'>Mostrar Más</button>
         </td>";
-        $output .= "</tr>";
 
         $output .= "<td>
             <form method='GET' action='user_edit.php'>
-                <input type='hidden' name='id_edit' value='{$fila[0]}'>
+                <input type='hidden' name='id_edit' value='$fila[0]'>
                 <button type='submit' name='editar'>Editar</button>
             </form>
         </td>";
+
+        $output .= "</tr>";
     }
 
     $output .= "</table>";

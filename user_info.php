@@ -7,7 +7,7 @@ $rutaCSV = "usuarios.csv";
 // Leemos el archivo
 $usuarios = leerArchivoCSV($rutaCSV);
 
-// Obtenemos el ID del usuario a mostrar desde POST o GET
+// Obtenemos el ID del usuario en concreto a mostrar desde GET
 $id_mostrarMas = $_GET['id'] ?? null;
 
 if ($id_mostrarMas) {
@@ -16,7 +16,7 @@ if ($id_mostrarMas) {
     echo "<p>No se ha especificado un usuario.</p>";
 }
 
-// Función mostrarMas trasladada a este archivo
+// Función mostrarMas (del botón de  Mostrar Más user_index.php)
 function mostrarMas($rutaCSV, $id_mostrarMas){
     $output = "<div class='detalleUsuario'>";
 
@@ -30,7 +30,7 @@ function mostrarMas($rutaCSV, $id_mostrarMas){
 
             $output .= "<div class='info_User'>";
             for ($i = 0; $i < count($header); $i++) {
-                $output .= "<p><strong>{$header[$i]}:</strong> {$fila[$i]}</p>";
+                $output .= "<p><strong>$header[$i] : </strong> $fila[$i]</p>";
             }
             $output .= "</div>";
         }
@@ -41,3 +41,16 @@ function mostrarMas($rutaCSV, $id_mostrarMas){
 }
 
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="user_info.php" rel="stylesheet">
+</head>
+<body>
+   <?php echo mostrarMas($rutaCSV, $id_mostrarMas) ?>
+</body>
+</html>

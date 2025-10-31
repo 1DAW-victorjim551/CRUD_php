@@ -29,11 +29,11 @@ function actualizarCSV($nombreArchivo, $idUsuario, $nuevosDatos) {
     }
 }
 
-// Capturamos el ID del usuario desde GET usando tu botón
+// Capturamos el ID del usuario desde GET
 $idUsuario = $_GET['id_edit'] ?? null;
-$usuarioCSV = "usuarios.csv";
+$usuarioCSV = "./usuarios.csv";
 
-// Leer todos los usuarios
+// Leer los usuarios del CSV usuarios
 $usuarios = [];
 if (($archivo = fopen($usuarioCSV, 'r')) !== false) {
     while (($datos = fgetcsv($archivo)) !== false) {
@@ -42,7 +42,7 @@ if (($archivo = fopen($usuarioCSV, 'r')) !== false) {
     fclose($archivo);
 }
 
-// Buscar usuario concreto
+// Buscar el  usuario concreto
 $usuario = null;
 foreach ($usuarios as $fila) {
     if ($fila[0] == $idUsuario) {
