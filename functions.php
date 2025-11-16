@@ -26,6 +26,51 @@ function leerArchivoCSV($rutaArchivoCSV) {
     ];
 }
 
+# FUNCIONES DE BBDD (vacías, para implementar con PDO)
+function leerDesdeBBDD() {
+    $conexionPDO = new PDO(
+        'mysql:host=localhost;dbname=crud_mysql;charset=utf8',
+        'crud_mysql',
+        'crud_mysql'
+    );
+
+    $sql = "SELECT * FROM usuarios";
+    $stmt = $conexionPDO->prepare($sql);
+    $stmt->execute();
+    $datos = $stmt->fetchAll(PDO::FETCH_NUM);
+    $header = [];
+    for ($i=0;$i<$stmt->columnCount();$i++){
+        $meta = $stmt->getColumnMeta($i);
+        $header[] = $meta['name'];
+    }
+
+    dump($datos);
+    dump($header);
+
+    return [
+        0 => array('header' => $header),
+        1 => array('datos' => $datos)
+    ];
+}
+
+
+# FUNCIÓN ENVOLVENTE
+function obtenerUsuarios($origen) {
+    /*
+      $origen: "csv" o "bbdd"
+      Si es "csv" → $param1 = ruta del archivo
+      Si es "bbdd" → $param1 = conexión PDO, $param2 = query SQL
+    */
+    if ($origen === "csv") {
+        $rutaCSV = "./usuarios.csv" ;
+        return leerArchivoCSV($rutaCSV);
+    } elseif ($origen === "bbdd") {
+        return leerDesdeBBDD();
+    } else {
+        return null;
+    }
+}
+
 function mostrarUsuarios($rutaCSV){
     $output = "<div class='container'>"; 
     $output .= "<table class='responsive-table'>";
@@ -57,7 +102,7 @@ function mostrarUsuarios($rutaCSV){
 
         //  Formulario que llama a delete_users.php
         $output .= "<td>
-            <form method='POST' action='user_delete.php'>
+            <form method='POST' action='cuadro_eliminacion.php'>
                 <input type='hidden' name='id_borrar' value='$fila[0]'>
                 <button type='submit' name='eliminar'>Eliminar</button>
             </form>
@@ -65,7 +110,10 @@ function mostrarUsuarios($rutaCSV){
 
         //  Formulario que abre el javascript ubicado en el show_users.php
         $output .= "<td>
-            <button class='btnMostrarMas' data-id='$fila[0]'>Mostrar Más</button>
+            <form method='POST' action='user_info.php'>
+                <input type='hidden' name='id_mostrarmas' value='$fila[0]'>
+                <button type='submit' name='Ver'>Ver</button>
+            </form>
         </td>";
 
         $output .= "<td>

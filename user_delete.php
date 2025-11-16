@@ -1,6 +1,7 @@
-<?php
-global $rutaCSV; 
+<?php 
+global $ruta_CSV; 
 $ruta_CSV = "./usuarios.csv";
+
 function borrarUsuario($id_borrar, $ruta_CSV) {
     $usuarios = [];
 
@@ -30,12 +31,40 @@ function borrarUsuario($id_borrar, $ruta_CSV) {
     }
 }
 
-// Si se envía el formulario desde show_users.php
-if (isset($_POST['eliminar']) && isset($_POST['id_borrar'])) {
-    borrarUsuario($_POST['id_borrar'], $ruta_CSV);
+function borrarUsuarioBBDD($id_borrar){
+    try {
+        $conexionPDO = new PDO(
+            'mysql:host=localhost;dbname=crud_mysql;charset=utf8',
+            'crud_mysql',
+            'crud_mysql'
+        );
+        $conexionPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = 'DELETE FROM usuarios WHERE ID = :ID';
+
+        $stmt = $conexionPDO->prepare($sql);
+
+        $stmt->bindValue(':ID', $id_borrar);
+
+        $stmt->execute();
+        
+        $conexionPDO = null;
+    } catch (PDOException $e) {
+        die("Error al eliminar usuario: " . $e->getMessage());
+    }
 }
 
+// Si se envía el formulario desde show_users.php
+if (isset($_POST['eliminar']) && isset($_POST['id_borrar'])) {
+    //BORRAR DESDE CSV
+    // borrarUsuario($_POST['id_borrar'], $ruta_CSV);
 
+    //BORRAR DESDE BASE DE DATOS
+    $id_borrar = $_POST['id_borrar'];
+    borrarUsuarioBBDD($id_borrar);
+}
+
+// Redirigir al índice
 header("Location: user_index.php");
 exit;
 ?>

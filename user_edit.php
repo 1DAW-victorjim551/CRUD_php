@@ -51,19 +51,55 @@ foreach ($usuarios as $fila) {
     }
 }
 
+    function actualizarBBDD($nuevosDatos){
+        try {
+            $conexionPDO = new PDO(
+                'mysql:host=localhost;dbname=crud_mysql;charset=utf8',
+                'crud_mysql',
+                'crud_mysql'
+            );
+            $conexionPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            //$idUsuario, $nombreUsuario, $email, $rol, $paswd, $date, $fecha_mod
+            $sql = 'UPDATE usuarios
+                    SET USUARIO = :USUARIO,
+                        EMAIL = :EMAIL,
+                        ROL = :ROL,
+                        PASSWORD = :PASSWORD,
+                        DATE_MOD = :DATE_MOD
+                    WHERE ID = :ID';
+
+            $stmt = $conexionPDO->prepare($sql);
+
+            $stmt->bindValue(':ID', $nuevosDatos[0]);
+            $stmt->bindValue(':USUARIO', $nuevosDatos[1]);
+            $stmt->bindValue(':EMAIL', $nuevosDatos[2]);
+            $stmt->bindValue(':ROL', $nuevosDatos[3]);
+            $stmt->bindValue(':PASSWORD', $nuevosDatos[4]);
+            $stmt->bindValue(':DATE_MOD', $nuevosDatos[6]);
+
+            $stmt->execute();
+            $conexionPDO = null;
+        } catch (PDOException $e) {
+            die("Error al actualizar usuario: " . $e->getMessage());
+        }
+    }
 // Si se ha enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $usuario) {
     $nombreUsuario = $_POST["txt"];
     $email = $_POST["email"];
     $rol = $_POST["rol"] ?? 'Visitante';
     $paswd = $_POST["pswd"];
-    $date = date("d/m/Y");
-    $fecha_mod = date("d/m/Y"); // fecha_mod actual
+    $date = date("Y-m-d");
+    $fecha_mod = date("Y-m-d"); // fecha_mod actual
 
     $nuevosDatos = [$idUsuario, $nombreUsuario, $email, $rol, $paswd, $date, $fecha_mod];
 
-    actualizarCSV($usuarioCSV, $idUsuario, $nuevosDatos);
+    //ACTUALIZAR MEDIANTE EL CSV
+    // actualizarCSV($usuarioCSV, $idUsuario, $nuevosDatos);
 
+    //ACTUALIZAR MEDIANTE BASE DE DATOS
+    actualizarBBDD($nuevosDatos);
     header("Location: user_index.php");
     exit;
 }
@@ -97,7 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $usuario) {
     </div>
 </div>
 
-<br><br><br><br><br><br><br><br><br>
-<a href="./user_index.php">Volver a Usuarios</a>
+<div class="button-container">
+    <a href="./user_index.php" class="button-link">Volver a Usuarios</a>
+</div>
+
 </body>
 </html>
