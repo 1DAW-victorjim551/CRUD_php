@@ -77,15 +77,20 @@ foreach ($usuarios as $fila) {
             $stmt->bindValue(':ROL', $nuevosDatos[3]);
             $stmt->bindValue(':PASSWORD', $nuevosDatos[4]);
             $stmt->bindValue(':DATE_MOD', $nuevosDatos[6]);
-
+            dump($stmt);
+            dump($nuevosDatos);
+            
             $stmt->execute();
             $conexionPDO = null;
         } catch (PDOException $e) {
+            dump($e);
             die("Error al actualizar usuario: " . $e->getMessage());
         }
     }
+    dump("Aqui llega");
 // Si se ha enviado el formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $usuario) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
+    dump("Aquí no");
     $nombreUsuario = $_POST["txt"];
     $email = $_POST["email"];
     $rol = $_POST["rol"] ?? 'Visitante';
