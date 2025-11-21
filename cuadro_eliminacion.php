@@ -82,7 +82,7 @@ if (!$id_borrar) {
 
         <form method="POST" action="user_delete.php" style="display:inline;">
             <input type="hidden" name="id_borrar" value="<?php echo $id_borrar; ?>">
-            <button type="submit" class="btn btn-yes">Sí</button>
+            <button type="submit" name="eliminar" class="btn btn-yes">Sí</button>
         </form>
 
         <form method="POST" action="user_index.php" style="display:inline;">
