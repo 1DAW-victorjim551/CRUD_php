@@ -60,7 +60,7 @@ if (isset($_POST['eliminar']) && isset($_POST['id_borrar'])) {
     // borrarUsuario($_POST['id_borrar'], $ruta_CSV);
 
     //BORRAR DESDE BASE DE DATOS
-    $id_borrar = $_POST['id_borrar'];
+    $id_borrar = FILTER_INPUT() $_POST['id_borrar'];
     borrarUsuarioBBDD($id_borrar);
 }
 
